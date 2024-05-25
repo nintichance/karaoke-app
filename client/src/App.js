@@ -12,6 +12,8 @@ function App() {
 
   const changeOsc1Freq = (e) => {
     console.log(e.target.value)
+    let { value } = e.target
+    osc1.frequency.value = value
   }
   
   return (
