@@ -9,7 +9,7 @@ import AudioStreamer from './components/AudioStream';
 function App() {
 
   const audioCtx = new AudioContext()
-  // let out = audioCtx.destination
+  let out = audioCtx.destination
   let osc1 = audioCtx.createOscillator()
   // let gain1 = audioCtx.createGain()
 
@@ -31,7 +31,7 @@ function App() {
       {/* <button onClick={()=> osc1.start()}>start</button>
       <button onClick={()=> osc1.stop()}>stop</button> */}
       {/* <Osc1 changeFreq={changeOsc1Freq} freq={osc1Freq}/> */}
-      <AudioStreamer audioCtx={audioCtx} osc1={osc1}/>
+      <AudioStreamer audioCtx={audioCtx} osc1={osc1} out={out}/>
 
     </div>
   )

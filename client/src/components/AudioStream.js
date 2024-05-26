@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react'
-const AudioStreamer = ({audioCtx, osc1}) => {
+const AudioStreamer = ({audioCtx, osc1, out}) => {
   const mediaStream = useRef(null)
+  let source = useRef(null)
   const startStreaming = async () => {
     osc1.start()
     osc1.stop()
@@ -10,26 +11,20 @@ const AudioStreamer = ({audioCtx, osc1}) => {
       )
       mediaStream.current = stream
      
-      const source = new MediaStreamAudioSourceNode(audioCtx, {
+      source = new MediaStreamAudioSourceNode(audioCtx, {
         mediaStream: stream,
       })
 
-      // let gain1 = audioCtx.createGain()
-      let out = audioCtx.destination
       source.connect(out)
-      // gain1.connect(out)
-      console.log("It got here")
     } catch (error) {
       console.error('Error accessing microphone:', error)
     }
   }
   const stopStreaming = () => {
     if (mediaStream.current){
-      mediaStream.current.getTracks().forEach((track)=>{
-        console.log("got it")
-        track.stop()
-      })
+      source.disconnect(out)
     }
+    
   }
   return (
     <div>
